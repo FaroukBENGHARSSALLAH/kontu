@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+     
+<head>
+
+	<title>kontu</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Motive Mag Responsive web template, 
+	                               Bootstrap Web Templates, Flat Web Templates, 
+	                               Andriod Compatible web template, 
+	                               Smartphone Compatible web template, 
+	                               free webdesigns for Nokia, Samsung, 
+	                               LG, SonyErricsson, Motorola web design" />
+	                               
+	 <link th:href="@{/css/bootstrap.css}" rel="stylesheet"  type="text/css"   />
+	 <link th:href="@{/css/style.css}" rel="stylesheet"  type="text/css"  />
+	<link  th:href="@{/css/uikit.min.css}" rel="stylesheet"  type="text/css"/>
+	<link  th:href="@{/css/dataTables.uikit.min.css}" rel="stylesheet"  type="text/css"/>
+	 	 
+	 <link rel="icon"  type="image/x-icon"  th:href="@{images/favicon.png}"  />
+</head>
+
+<body  onload="var x = document.getElementById('transfertdiv'); if(x) x.style.display = 'none'; x = document.getElementById('interest'); if(x) x.style.display = 'none';">
+ 
+    
+     <div th:replace="fragments/header :: header"></div>
+           <div class="col-md-6">
+              <div class="panel panel-default">
+                 <div class="panel-heading">Account search</div>
+                 <div class="panel-body">
+                     <form  th:action="@{/searchaccount}"  method="get">
+                        <div>
+                           <label>account code : </label>
+                           <input type="text" name="reference" th:value="${reference}" />
+                           <button type="submit" class="btn btn-default btn-sm">submit</button>
+                             <button  type="button"
+                            class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#addmodal">
+                                 <i class="glyphicon glyphicon-plus"></i>
+                           </button>
+                        </div>
+                     </form>
+                     <div class="text-danger" th:if="${exception}" th:text="${exception.message}"  ></div>
+                 </div>
+              </div>
+              <div class="panel panel-default" th:if="${account}">
+                 <div class="panel-heading">Account details</div>
+                 <div class="panel-body">
+                         <button  type="button"
+                                    class="btn btn-default btn-sm pull-right" th:onclick="'edit(\'' + ${account.reference} + '\');'" >
+                              <i class="glyphicon glyphicon-cog"></i>
+                        </button>
+                         <a  th:if="${account}"  type="button" style="margin-right: 5px;"
+                             class="btn btn-default btn-sm pull-right" th:href="@{'/deleteaccount?reference=' + ${account.reference}}" >
+                              <i class="glyphicon glyphicon-remove"></i>
+                        </a>
+                        <div>
+	                         <label>reference : </label>
+	                         <label th:text="${account.reference}"></label>
+                        </div>
+                        <div>
+		                     <label>client reference : </label>
+		                     <label th:text="${account.client.reference}"></label>
+	                     </div>
+	                      <div>
+		                     <label> client name : </label>
+		                     <label th:text="${account.client.name}"></label>
+	                     </div>
+	                      <div>
+		                     <label>client email : </label>
+		                     <label th:text="${account.client.email}"></label>
+                       </div>
+                       <div>
+	                     <label>balance : </label>
+	                     <label th:text="${account.balance}"></label>
+                     </div>
+                      <div>
+	                     <label>date : </label>
+	                     <label th:text="${account.creationDate}"></label>
+                     </div>
+                      <div>
+	                     <label>type : </label>
+	                     <label th:text="${account.class.simpleName}"></label>
+                     </div>
+                     <div th:if="${account.class.simpleName} == 'CheckingAccount' ">
+	                     <label>overdraft : </label>
+	                     <label th:text="${account.overdraft}"></label>
+                     </div>
+                     <div th:if="${account.class.simpleName} == 'SavingAccount' ">
+	                     <label>interest : </label>
+	                     <label th:text="${account.interest}"></label>
+                     </div>
+                 </div>
+              </div>
+           </div>
+           <div class="col-md-6"  >
+              <div class="panel panel-default" th:if="${account}" >
+                 <div class="panel-heading">Transactions list</div>
+                 <div class="panel-body">
+                      <form  th:action="@{/submittransaction}"  method="get">
+                           <input type="hidden" th:value="${reference}" name="reference" />
+                           <div>
+                              <label class="label label-info">            select transaction type to be submitted                </label>
+                           </div>
+                           <br></br>
+                           <div>
+                              <input type="radio" value="payment" name="type" checked="checked"
+                                         onchange="$('#transfertdiv').hide();" />
+                              <label>payment</label>
+                              <input type="radio" value="withdraw" name="type" 
+                                        onchange="$('#transfertdiv').hide();" />
+                              <label>withdraw</label>
+                              <input type="radio" value="transfert" name="type"
+                                       onchange="$('#transfertdiv').show();" />
+                              <label>transfert</label>
+                           </div>
+                            <p></p>
+                            <div id="transfertdiv"  >
+					             <div>
+						             <label>target account reference : </label>
+			                         <input type="text"  name="targetaccreference" />
+		                         </div>
+					        </div>
+					        <p></p>
+                           <div >
+		                        <label>amount : </label>
+		                        <input type="text"  name="amount" />
+					        </div>
+					        <p></p>
+					         <div class="text-danger" th:if="${transactionexception}" th:text="${transactionexception}"  ></div>
+					          <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-ok"></i></button>
+                      </form>
+                     
+                 </div>
+              </div>
+                   <div class="panel panel-default" th:if="${transactions}">
+                 <div class="panel-heading">Account transactions</div>
+                 <div class="panel-body">
+                        <a type="button" th:href="@{'/pdfexportaccount?reference=' + ${account.reference}}" style="margin-left: 5px;"  
+                        class="btn btn-default btn-xs pull-right">pdf</a>
+						<a type="button" th:href="@{'/xlsxexportaccount?reference=' + ${account.reference}}" 
+						class="btn btn-default btn-xs pull-right" style="margin-right: 5px;">xls</a>
+                        <table class="uk-table uk-table-hover uk-table-striped" id='transcations'>
+								    <thead>
+								      <tr>
+								        <th>type</th> 
+								        <th>data</th>
+								        <th>amount</th>
+								      </tr>
+								    </thead>
+								    <tbody>
+								      <tr th:each="transaction:${transactions}" >
+								        <td th:if="${transaction.class.simpleName} == 'PaymentTransaction' ">payment</td>
+								        <td th:if="${transaction.class.simpleName} == 'WithdrawalTransaction' ">withdraw</td>
+								        <td  th:text="${transaction.date}" ></td>
+								        <td  th:text="${transaction.amount}" ></td>
+								      </tr>
+								    </tbody>
+						</table>
+                 </div>
+              </div>
+           </div>
+		   
+		   <div th:replace="fragments/footer :: footer"></div>
+		   
+              <div id="addmodal" class="modal fade" role="dialog">
+					  <div class="modal-dialog">
+					        <form th:action="@{/addaccount}"  method="post" >
+							    <div class="modal-content">
+								      <div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal">&times;</button>
+								        <h4 class="modal-title">add account</h4>
+								      </div>
+								      <div class="modal-body">
+								         <fieldset class="pull-right" >
+								              <label>client : </label>
+									          <select  name="clientref" >
+									           <option value="-1" > </option>
+												  <option th:each="cl:${clientlist}"
+												  th:value="${cl.reference}" th:text="${cl.name}" ></option>
+											   </select>
+										 </fieldset>
+										 <p></p>
+								         <fieldset>
+				                               <label style="padding-right:104px;" >reference</label>
+				                               <input type="text" name="reference"   />
+                                          </fieldset>
+                                            <fieldset>
+				                               <label style="padding-right:113px;" >balance</label>
+				                               <input type="text" name="balance"  />
+                                          </fieldset>
+								          <fieldset>
+								              <label style="padding-right:113px;" >type</label>
+				                              <input type="radio" value="checking" name="type" checked="checked"
+				                                         onchange="$('#overdraft').show();$('#interest').hide();" />
+				                              <label>checking</label>
+				                              <input type="radio" value="saving" name="type" 
+				                                        onchange="$('#interest').show();$('#overdraft').hide();" />
+				                              <label>saving</label>
+				                          </fieldset>
+				                          <fieldset id="overdraft"  >
+										             <label style="padding-right:107px;" >overdraft</label>
+							                         <input type="text"  name="overdraft"  />
+						                  </fieldset>
+				                          <fieldset  id="interest"  >
+						                        <label style="padding-right:116px;"  >interest</label>
+						                        <input type="text"  name="interest" />
+									       </fieldset>
+									  </div>
+								      <div class="modal-footer">
+								          <button type="submit" class="btn btn-default btn-sm" >
+								                <i class="glyphicon glyphicon-ok"></i>
+								          </button>
+								          <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+								               <i class="glyphicon glyphicon-remove"></i>
+								          </button>
+								      </div>
+					             </div>
+					         </form>
+		            </div>
+           </div>
+           <div id="editmodal" class="modal fade" role="dialog" >
+					  <div class="modal-dialog">
+					        <form th:action="@{/editaccount}"  method="post" >
+							    <div class="modal-content">
+								      <div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal">&times;</button>
+								        <h4 class="modal-title">edit account</h4>
+								      </div>
+								      <div class="modal-body">
+								         <fieldset>
+				                               <label  style="padding-right:76px;"  >reference</label>
+				                               <input type="text" id="reference"  name="reference"  />
+                                          </fieldset>
+                                            <fieldset>
+				                               <label  style="padding-right:76px;" >balance</label>
+				                               <input type="text" id="balance" name="balance"  />
+                                          </fieldset>
+				                          <fieldset id="overdraft"  >
+										             <label  style="padding-right:76px;" >overdraft</label>
+							                         <input type="text"  id="overdraft" name="overdraft" />
+						                  </fieldset>
+				                          <fieldset  id="interest"  >
+						                        <label  style="padding-right:76px;"  >interest</label>
+						                        <input type="text"  id="interest" name="interest" />
+									       </fieldset>
+									  </div>
+								      <div class="modal-footer">
+								          <button type="submit" class="btn btn-default btn-sm" >
+								                <i class="glyphicon glyphicon-ok"></i>
+								          </button>
+								          <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+								               <i class="glyphicon glyphicon-remove"></i>
+								          </button>
+								      </div>
+					             </div>
+					         </form>
+		            </div>
+           </div>
+     
+     <script th:src="@{/js/jquery.js}" type="text/javascript" ></script>
+     <script th:src="@{/js/bootstrap.js}" type="text/javascript" ></script>
+     <script   th:src="@{/js/jqtable.js}" type="text/javascript" ></script>
+	 <script   th:src="@{/js/bootstraptable.js}" type="text/javascript" ></script>
+	<script   th:src="@{/js/datatabletheme.js}" type="text/javascript" ></script>
+	<script type="text/javascript">
+
+		   $("#foooter").css("bottom", "-100px");
+
+	
+	    $('#transcations').DataTable({
+	        "pagingType": "numbers",
+	        "bSort" : false,
+	        "lengthMenu": [[5, 15, 15, -1], [5, 15, 15, "All"]]
+	          });
+
+        function edit(ref){
+        	 $.get("/findaccount", {reference : ref }, function(data, status){
+        	        editdata(data);
+        	    });
+              }
+
+
+        function editdata(data){
+        	$('#reference').val(data.reference);
+        	$('#balance').val(data.balance);
+        	if(data.overdraft !== null) {
+        		   $('#overdraft').val(data.overdraft);
+        		   $('#interest').hide();
+            	}
+        	else if(data.interest !== null) {
+         		   $('#interest').val(data.interest);
+         		   $('#overdraft').hide();
+             	}
+        	$('#reference').val(data.reference);
+        	$('#editmodal').modal('show');
+            }
+	</script>
+ </body>
+</html>
