@@ -17,6 +17,11 @@
 				        <li  th:class="${view == 'client'} ? 'active' : '' "  ><a th:href="@{/client}">client</a></li>
 				        <li  th:class="${view == 'account'} ? 'active' : '' "  ><a th:href="@{/account}">account</a></li>
 				      </ul>
+				       <ul class="nav navbar-nav navbar-right">
+						        <li><a href="#" >Bonjour admin</a></li>
+						        <li role="separator" class="divider"></li>
+						        <li><a th:href="@{/logout}" >logout</a></li>
+				     </ul>
 				    </div>
 				  </div>
 				</nav>

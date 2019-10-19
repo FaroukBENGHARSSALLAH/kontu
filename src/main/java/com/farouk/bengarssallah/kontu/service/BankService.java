@@ -1,33 +1,36 @@
-package com.farouk.bengarssallah.kontu.service;
-
-import java.util.Collection;
+import com.farouk.bengarssallah.kontu.domain.Transaction;
 import java.util.List;
-
+import java.util.Collection;
 import com.farouk.bengarssallah.kontu.domain.Account;
 import com.farouk.bengarssallah.kontu.domain.Client;
-import com.farouk.bengarssallah.kontu.domain.Transaction;
 
-public interface BankService {
-
-	  public Client findClientByReference(Long reference); 
-	  public Account findAccountByReference(Long reference);
-	  
-	  public Collection<Client> findAllClient(); 
-
-	  
-	  public void addClient(Client client);
-	  public void editClient(Client client);
-	  public void deleteClient(Client client);
-	  
-	  public void addAccount(Account account);
-	  public void editAccount(Account account);
-	  public void deleteAccount(Account account);
-	  
-	  public void pay(Long reference, double amount);
-	  public void withdraw(Long reference, double amount);
-	  public void trasnfert(Long referenceAccountSource, Long referenceAccountTarget, double amount);
-	  
-	  public List<Account> accountsList(Long reference);
-	  public List<Transaction> transactionsList(Long code);
-	  
+public interface BankService
+{
+    Client findClientByReference(final Long p0);
+    
+    Account findAccountByReference(final Long p0);
+    
+    Collection<Client> findAllClient();
+    
+    void addClient(final Client p0);
+    
+    void editClient(final Client p0);
+    
+    void deleteClient(final Client p0);
+    
+    void addAccount(final Account p0);
+    
+    void editAccount(final Account p0);
+    
+    void deleteAccount(final Account p0);
+    
+    void pay(final Long p0, final double p1);
+    
+    void withdraw(final Long p0, final double p1);
+    
+    void trasnfert(final Long p0, final Long p1, final double p2);
+    
+    List<Account> accountsList(final Long p0);
+    
+    List<Transaction> transactionsList(final Long p0);
 }
