@@ -13,4 +13,6 @@ Used APIs,
 - Spring Security 4.2
 - HTML5, CSS3, Boostrap 3, JQuery 2
 
-You can visit the live version via [Kontu](http://kontu-dev-alpha.herokuapp.com//).
+You can visit the live version via [Kontu](https://kontu-dev-alpha.herokuapp.com).
+
+> This project is in the alpha stage
