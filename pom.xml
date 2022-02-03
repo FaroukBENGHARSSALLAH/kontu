@@ -3,6 +3,8 @@
   <groupId>com.farouk.bengarssallah.kontu</groupId>
   <artifactId>kontu</artifactId>
   <version>0</version>
+      <packaging>jar</packaging>
+
   
     <parent>
         <groupId>org.springframework.boot</groupId>
