@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http:www.thymeleaf.org" 
+      xmlns:sec="http:www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+     
+<head>
+
+	<title>kontu</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Motive Mag Responsive web template, 
+	                               Bootstrap Web Templates, Flat Web Templates, 
+	                               Andriod Compatible web template, 
+	                               Smartphone Compatible web template, 
+	                               free webdesigns for Nokia, Samsung, 
+	                               LG, SonyErricsson, Motorola web design" />
+	                               
+	 <link th:href="@{/css/bootstrap.css}" rel="stylesheet"  type="text/css"   />
+	 <link th:href="@{/css/style.css}" rel="stylesheet"  type="text/css"  />
+	 <link th:href="@{/css/slider.css}" rel="stylesheet"  type="text/css"  />
+	 <link th:href="@{/css/slidertheme.css}" rel="stylesheet"  type="text/css"  />
+	 
+	 <link rel="icon"  type="image/x-icon"  th:href="@{images/favicon.png}"  />
+</head>
+
+<body >
+
+	  <div th:replace="fragments/header :: header"></div>
+	  
+	      <div class="alert alert-info alert-dismissable pull-right" style="width: 17%;margin-right: 40px; margin-top: -143px;">
+		    <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+		    <strong>Notification</strong> When visiting the home page, the database data will be reset
+		  </div> 
+	  
+	     <div class="container-fluid">
+	           <div class="panel panel-default">
+                       <div class="panel-body">
+                            <p>This project is a simulation for a bank account platefrom. You can found the project in <a href="http://github.com/FaroukBENGHARSSALLAH/kontu" target="_blank" >Github</a></p>
+                            <p>To check the databse tables, visit <a href="/h2-console" target="_blank" > h2-console </a></p>
+                            <p>When visiting the home page, the database data will be reset.</p>
+                            <p>If you want a customized version you can contact me.</p>
+                            <p style="font-size: 15px;">Mail: farouk.bengarssallah@gmail.com</p>
+                       </div>
+			   </div> 
+	     </div>
+	 
+	 <div th:replace="fragments/footer :: footer"></div>
+	 
+	 
+     <script th:src="@{/js/jquery.js}" type="text/javascript" ></script>
+     <script th:src="@{/js/bootstrap.js}" type="text/javascript" ></script>
+     
+   
+	
+ </body>
+</html>

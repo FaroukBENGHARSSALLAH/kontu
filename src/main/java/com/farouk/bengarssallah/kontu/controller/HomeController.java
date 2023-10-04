@@ -11,9 +11,11 @@ import java.util.HashSet;
 
 import com.farouk.bengarssallah.kontu.domain.SavingAccount;
 import com.farouk.bengarssallah.kontu.domain.CheckingAccount;
+import com.farouk.bengarssallah.kontu.domain.Transaction;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import com.farouk.bengarssallah.kontu.domain.Account;
 import com.farouk.bengarssallah.kontu.domain.Client;
 import java.sql.SQLException;
@@ -25,6 +27,8 @@ import lombok.AllArgsConstructor;
 
 import com.farouk.bengarssallah.kontu.repository.AccountRepository;
 import com.farouk.bengarssallah.kontu.repository.ClientRepository;
+import com.farouk.bengarssallah.kontu.repository.TransactionRepository;
+
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.stereotype.Controller;
 
@@ -35,6 +39,8 @@ public class HomeController {
     private EmbeddedDatabase dataSource;
     private ClientRepository clientRepository;
     private AccountRepository accountRepository;
+	    private TransactionRepository transactionRepository;
+
     private BankService bankService;
     
     @RequestMapping({ "/", "/welcome" })
@@ -48,65 +54,33 @@ public class HomeController {
     
     private void reset() {
     	
-        try {
-            this.clearDatabase();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+        	
+            List<Client> clients = clientRepository.findAll();
+            for(Client client : clients) {
+            	   if(!client.getName().equals("peter") && 
+            			   !client.getName().equals("jhon") && 
+            			   !client.getName().equals("dimitry"))
+            		   clientRepository.delete(client.getReference());
+                  }
+            
+            List<Account> accounts = accountRepository.findAll();
+            for(Account account : accounts) {
+            	   if(account.getReference() > 2)
+            		   accountRepository.delete(account.getReference());
+                  }
+            
+            List<Transaction> transactions = transactionRepository.findAll();
+            for(Transaction transaction : transactions) {
+            	   if(transaction.getCode() > 14)
+            		   accountRepository.delete(transaction.getCode());
+                  }
+            
+            
         
-        final Client cl = this.clientRepository.save(new Client("peter", "cl@gmai.com"));
-        final Client cl2 = this.clientRepository.save(new Client("jhon", "cl@gmai.com"));
-        final Client cl3 = this.clientRepository.save(new Client("dimitry", "cl@gmai.com"));
-        final Account ac = this.accountRepository.save(new CheckingAccount(new Date(), 900.0, "CAD", cl));
-        final Account ac2 = this.accountRepository.save(new SavingAccount(new Date(), 100.0, "CAD", cl2));
         
-        this.bankService.pay(ac.getReference(), 2.0);
-        this.bankService.pay(ac.getReference(), 2.0);
-        this.bankService.pay(ac.getReference(), 2.0);
-        this.bankService.pay(ac.getReference(), 2.0);
-        this.bankService.pay(ac.getReference(), 2.0);
-        this.bankService.pay(ac.getReference(), 2.0);
-        this.bankService.pay(ac.getReference(), 2.0);
-        this.bankService.pay(ac.getReference(), 2.0);
-        this.bankService.pay(ac.getReference(), 2.0);
-        this.bankService.pay(ac.getReference(), 2.0);
-        this.bankService.pay(ac.getReference(), 2.0);
-        this.bankService.pay(ac.getReference(), 2.0);
-        this.bankService.withdraw(ac.getReference(), 5.0);
-        
-        this.bankService.trasnfert(ac.getReference(), ac2.getReference(), 20.0);
+       
     }
     
-    
-    public void clearDatabase() throws SQLException {
-        final Connection c = this.dataSource.getConnection();
-        final Statement s = c.createStatement();
-        s.execute("SET REFERENTIAL_INTEGRITY FALSE");
-        final Set<String> tables = new HashSet<String>();
-        ResultSet rs = s.executeQuery("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='PUBLIC'");
-        while (rs.next()) {
-            final String rss = rs.getString(1);
-            if (!rss.equals("USER") && !rss.equals("PERSISTENT_LOGIN")) {
-                tables.add(rss);
-            }
-        }
-        rs.close();
-        for (final String table : tables) {
-            s.executeUpdate("TRUNCATE TABLE " + table);
-        }
-        final Set<String> sequences = new HashSet<String>();
-        rs = s.executeQuery("SELECT SEQUENCE_NAME FROM INFORMATION_SCHEMA.SEQUENCES WHERE SEQUENCE_SCHEMA='PUBLIC'");
-        while (rs.next()) {
-            sequences.add(rs.getString(1));
-        }
-        rs.close();
-        for (final String seq : sequences) {
-            s.executeUpdate("ALTER SEQUENCE " + seq + " RESTART WITH 1");
-        }
-        s.execute("SET REFERENTIAL_INTEGRITY TRUE");
-        s.close();
-    }
     
     private String getPrincipal() {
         String userName = null;

@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: kontu
+Implementation-Version: 0
+Built-By: User
+Implementation-Vendor-Id: com.farouk.bengarssallah.kontu
+Build-Jdk: 1.8.0_331
+Implementation-URL: http://projects.spring.io/spring-boot/kontu/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+Main-Class: com.farouk.bengarssallah.kontu.Application
+

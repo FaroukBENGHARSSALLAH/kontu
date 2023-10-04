@@ -86,6 +86,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         				      .permitAll()
         				  .and()
         				     .csrf().disable();
+							       http.headers().frameOptions().disable();
+
     }
     
     @Bean
