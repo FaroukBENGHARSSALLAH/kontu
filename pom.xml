@@ -3,7 +3,7 @@
   <groupId>com.farouk.bengarssallah.kontu</groupId>
   <artifactId>kontu</artifactId>
   <version>0</version>
-      <packaging>jar</packaging>
+      <packaging>war</packaging>
 
   
     <parent>
@@ -54,11 +54,11 @@
 	    <artifactId>poi-ooxml</artifactId>
 	    <version>3.17</version>
 	</dependency>
-<!-- 	<dependency>
+    <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
-	    </dependency> -->
+	 </dependency>
 	 <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
