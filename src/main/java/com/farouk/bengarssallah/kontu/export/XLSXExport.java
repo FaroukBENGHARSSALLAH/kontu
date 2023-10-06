@@ -40,7 +40,7 @@ public class XLSXExport extends AbstractXlsxView {
         spacerow3.createCell(0).setCellValue("  ");
         
         final XSSFRow accountrow = sheet.createRow(7);
-        accountrow.createCell(0).setCellValue("Client");
+        accountrow.createCell(0).setCellValue("Account");
         final XSSFRow spacerow4 = sheet.createRow(8);
         spacerow4.createCell(0).setCellValue("  ");
         final XSSFRow acountrowreference = sheet.createRow(9);
@@ -50,8 +50,8 @@ public class XLSXExport extends AbstractXlsxView {
         acountrowbalance.createCell(0).setCellValue("Balance");
         acountrowbalance.createCell(1).setCellValue(String.format("%,14.2f", account.getBalance()).replace(",", "."));
         final XSSFRow acountrowcurrency = sheet.createRow(11);
-        acountrowcurrency.createCell(0).setCellValue("Balance");
-        acountrowcurrency.createCell(1).setCellValue(account.getReference());
+        acountrowcurrency.createCell(0).setCellValue("Currency");
+        acountrowcurrency.createCell(1).setCellValue(account.getCurrency());
         final XSSFRow spacerow5 = sheet.createRow(12);
         spacerow5.createCell(0).setCellValue("  ");
         

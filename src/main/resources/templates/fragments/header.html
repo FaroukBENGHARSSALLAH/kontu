@@ -19,7 +19,7 @@
 				      	<li  th:if="${isAdmin}" th:class="${view == 'user'} ? 'active' : '' "  ><a th:href="@{/user}">employees</a></li>
 				      </ul>
 				       <ul class="nav navbar-nav navbar-right">
-						        <li><a href="#" >Welcome ${loggeduser}</a></li>
+						        <li><a href="#" >Welcome <strong th:text="${loggeduser}" ></strong></a></li>
 						        <li role="separator" class="divider"></li>
 						        <li><a th:href="@{/logout}" >logout</a></li>
 				     </ul>

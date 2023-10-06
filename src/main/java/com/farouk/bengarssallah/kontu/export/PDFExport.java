@@ -46,15 +46,16 @@ public class PDFExport extends AbstractPdfView {
         document.add(clientdetail);
         
         final Paragraph ACCOUNT = new Paragraph("ACCOUNT");
-        CLIENT.setAlignment(0);
-        CLIENT.setSpacingAfter(10.0f);
-        CLIENT.setSpacingBefore(10.0f);
+        ACCOUNT.setAlignment(0);
+        ACCOUNT.setSpacingAfter(10.0f);
+        ACCOUNT.setSpacingBefore(10.0f);
         document.add(ACCOUNT);
+		
         final String accountdetails = "Reference    :     " + account.getReference() + " \nBalance :     " + String.format("%,14.2f", account.getBalance()).replace(",", ".") + "\nCurrency  :     " + account.getCurrency();
         final Paragraph accountdetail = new Paragraph(accountdetails);
-        clientdetail.setAlignment(0);
-        clientdetail.setSpacingAfter(30.0f);
-        clientdetail.setSpacingBefore(10.0f);
+        accountdetail.setAlignment(0);
+        accountdetail.setSpacingAfter(30.0f);
+        accountdetail.setSpacingBefore(10.0f);
         document.add(accountdetail);
         
         final PdfPTable table = new PdfPTable(3);
