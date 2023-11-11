@@ -3,7 +3,7 @@
   <groupId>com.farouk.bengarssallah.kontu</groupId>
   <artifactId>kontu</artifactId>
   <version>0</version>
-      <packaging>war</packaging>
+  <packaging>jar</packaging>
 
   
     <parent>
@@ -86,6 +86,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+				 <executions>
+        <execution>
+            <configuration>
+                <mainClass>com.farouk.bengarssallah.kontu.Application</mainClass>
+            </configuration>
+        </execution>
+    </executions>
             </plugin>
             <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
